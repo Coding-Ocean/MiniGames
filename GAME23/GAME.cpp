@@ -2,50 +2,62 @@
 #include "../MAIN/MANAGER.h"
 #include "../MAIN/FADE.h"
 #include "../MAIN/MENU.h"
+#include "BOSS.h"
+#include "COURT.h"
+#include "PLAYER.h"
+#include "BALL.h"
+#include "AI.h"
+#include "HP.h"
 #include "GAME.h"
 namespace GAME23 { //自分でなにかファイルを追加したらincludeの後にこの行を追加すること。　ファイルの最後に“ } ”も忘れずに！
 
-	GAME::GAME(MANAGER* manager)
-	{
-		Img = loadImage("../game23/assets/unkoWhite.png");
-
-		Diameter = 200;
-		Px = -100;
-		Py = height / 2;
-		Vx = 20;
-
+	GAME::GAME(MANAGER* manager){
+		create();
 		//フェードイン（ここはいじらないでよい）
 		manager->fade->fadeInTrigger();
 	}
-
-	GAME::~GAME()
-	{
+	GAME::~GAME() {
+		destroy();
 	}
 
-	void GAME::proc(MANAGER* manager)
+	void GAME::create()
 	{
-		//更新
-		Px += Vx;
+		Actors.push_back(Court = new COURT(this));
+		Actors.push_back(Player = new PLAYER(this));
+		Actors.push_back(Ball = new BALL(this));
+		Actors.push_back(Boss = new BOSS(this));
+		Actors.push_back(Ai = new AI(this));
+		Actors.push_back(Hp = new HP(this));
+		Init();
+	}
 
-		//描画
-		clear(200);
-		circle(Px, Py, Diameter);
-		
-		//円が右に消えたらゲームオーバーとする
-		if (Px > 2100) {
-			//うんこ表示
-			rectMode(CENTER);
-			image(Img, width / 2, height / 2);
-			//文字表示
-			fill(255, 0, 0);
-			textSize(200);
-			text("Game Over", 500, 100);
-			textSize(60);
-			text("Enterでメニューに戻る", 600, 800);
-			//メニューに戻る
-			if (isTrigger(KEY_ENTER)) {
-				BackToMenuFlag = 1;
-			}
+	void GAME::destroy()
+	{
+		for (ACTOR* actor : Actors) {
+			delete actor;
+		}
+	}
+
+	void GAME::Init()
+	{
+		for (ACTOR* actor : Actors) {
+			actor->init();
+		}
+	}
+
+	void GAME::proc(MANAGER*manager)
+	{
+		clear(60, 0, 0);
+
+		for (ACTOR* actor : Actors) {
+			actor->update();
+		}
+		for (ACTOR* actor : Actors) {
+			actor->draw();
+		}
+		//メニューに戻る
+		if (isTrigger(KEY_ENTER)) {
+			BackToMenuFlag = 1;
 		}
 
 		//メニューに戻る (基本的に以下はいじらなくてよい)

@@ -99,6 +99,7 @@ void MENU::proc( MANAGER *manager ){
     rectMode(CORNER);
     textMode(TOP);
     textSize(80);
+    stroke(0,0,0);
     for( int i = 0; i < Tate; i++ ){
         for( int j = 0; j < Yoko; j++ ){
             int k = i * Yoko + j;
