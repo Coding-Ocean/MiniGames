@@ -2,8 +2,32 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="GAME.h" />
+    <ClInclude Include="GAME_OBJECT.h" />
+    <ClInclude Include="CONTAINER.h" />
+    <ClInclude Include="PLAYER.h" />
+    <ClInclude Include="BULLETS.h" />
+    <ClInclude Include="PLAYER_BULLETS.h" />
+    <ClInclude Include="ENEMIES.h" />
+    <ClInclude Include="ITEMS.h" />
+    <ClInclude Include="SCENE.h" />
+    <ClInclude Include="TITLE.h" />
+    <ClInclude Include="STAGE.h" />
+    <ClInclude Include="GAME_CLEAR.h" />
+    <ClInclude Include="GAME_OVER.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GAME.cpp" />
+    <ClCompile Include="GAME_OBJECT.cpp" />
+    <ClCompile Include="CONTAINER.cpp" />
+    <ClCompile Include="PLAYER.cpp" />
+    <ClCompile Include="BULLETS.cpp" />
+    <ClCompile Include="PLAYER_BULLETS.cpp" />
+    <ClCompile Include="ENEMIES.cpp" />
+    <ClCompile Include="ITEMS.cpp" />
+    <ClCompile Include="SCENE.cpp" />
+    <ClCompile Include="TITLE.cpp" />
+    <ClCompile Include="STAGE.cpp" />
+    <ClCompile Include="GAME_CLEAR.cpp" />
+    <ClCompile Include="GAME_OVER.cpp" />
   </ItemGroup>
 </Project>

@@ -1,53 +1,79 @@
 #include "../libOne/inc/libOne.h"
+#include"../libOne/inc/graphic.h"
 #include "../MAIN/MANAGER.h"
 #include "../MAIN/FADE.h"
 #include "../MAIN/MENU.h"
-#include "GAME.h"
+#include"GAME.h"
+#include"CONTAINER.h"
+#include"PLAYER.h"
+#include"PLAYER_BULLETS.h"
+#include"TITLE.h"
+#include"STAGE.h"
+#include"GAME_CLEAR.h"
+#include"GAME_OVER.h"
+#include"ENEMIES.h"
+#include"ITEMS.h"
+
+
 namespace GAME20 { //自分でなにかファイルを追加したらincludeの後にこの行を追加すること。　ファイルの最後に“ } ”も忘れずに！
 
 	GAME::GAME(MANAGER* manager)
 	{
-		Img = loadImage("../game20/assets/unkoWhite.png");
+		Container = new CONTAINER;
+		Scenes[TITLE_ID] = new TITLE(this);
+		Scenes[STAGE_ID] = new STAGE(this);
+		Scenes[GAME_CLEAR_ID] = new GAME_CLEAR(this);
+		Scenes[GAME_OVER_ID] = new GAME_OVER(this);
+		CurSceneId = TITLE_ID;
 
-		Diameter = 200;
-		Px = -100;
-		Py = height / 2;
-		Vx = 20;
-
+		Player = new PLAYER(this);
+		Enemies = new ENEMIES(this);
+		Items = new ITEMS(this);
+		PlayerBullets = new PLAYER_BULLETS(this);
+		
+		init();
 		//フェードイン（ここはいじらないでよい）
 		manager->fade->fadeInTrigger();
 	}
 
 	GAME::~GAME()
 	{
+		delete PlayerBullets;
+		delete Enemies;
+		delete Items;
+		delete Player;
+		for (int i = 0; i < NUM_SCENES; i++) {
+			delete Scenes[i];
+		}
+		delete Container;
+	}
+
+	void GAME::init() {
+
+		Container->load();
+		Scenes[TITLE_ID]->create();
+		Scenes[GAME_CLEAR_ID]->create();
+		Scenes[GAME_OVER_ID]->create();
+		Player->create();
+		Items->create();
+		Enemies->create();
+		PlayerBullets->create();
+		
+		CurSceneId = TITLE_ID;
+		Scenes[CurSceneId]->init();
+		initDeltaTime();
 	}
 
 	void GAME::proc(MANAGER* manager)
 	{
-		//更新
-		Px += Vx;
-
-		//描画
-		clear(200);
-		circle(Px, Py, Diameter);
-		
-		//円が右に消えたらゲームオーバーとする
-		if (Px > 2100) {
-			//うんこ表示
-			rectMode(CENTER);
-			image(Img, width / 2, height / 2);
-			//文字表示
-			fill(255, 0, 0);
-			textSize(200);
-			text("Game Over", 500, 100);
-			textSize(60);
-			text("Enterでメニューに戻る", 600, 800);
-			//メニューに戻る
-			if (isTrigger(KEY_ENTER)) {
-				BackToMenuFlag = 1;
-			}
+		//while (notQuit) {
+			setDeltaTime();
+			Scenes[CurSceneId]->proc();
+		//}
+		//メニューに戻る
+		if (isTrigger(KEY_ENTER)) {
+			BackToMenuFlag = 1;
 		}
-
 		//メニューに戻る (基本的に以下はいじらなくてよい)
 		manager->fade->draw();
 		if (BackToMenuFlag == 1) {
@@ -57,5 +83,19 @@ namespace GAME20 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 				manager->state = new MENU(manager);
 			}
 		}
+
+	}
+
+	void GAME::changeScene(SCENE_ID sceneId) {
+		CurSceneId = sceneId;
+		Scenes[CurSceneId]->init();
+	}
+
+	void GAME::draw() {
+		clear(169, 206, 239);
+		Player->draw();
+		Items->draw();
+		Enemies->draw();
+		PlayerBullets->draw();
 	}
 }

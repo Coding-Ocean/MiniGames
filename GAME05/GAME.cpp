@@ -3,17 +3,24 @@
 #include "../MAIN/FADE.h"
 #include "../MAIN/MENU.h"
 #include "GAME.h"
+//210209
 namespace GAME05 { //自分でなにかファイルを追加したらincludeの後にこの行を追加すること。　ファイルの最後に“ } ”も忘れずに！
-
+	MYCIRCLE *c1 = new MYCIRCLE;
+	EBALL *b1 = new EBALL[10];
+	int sd;
 	GAME::GAME(MANAGER* manager)
 	{
+		sound();
+		//ボール初期
+		strokeWeight(1);
+		c1->init();
+		for (int i = 0; i < 10; i++) {
+			b1[i].init();
+		}
+		
+		
+
 		Img = loadImage("../game05/assets/unkoWhite.png");
-
-		Diameter = 200;
-		Px = -100;
-		Py = height / 2;
-		Vx = 20;
-
 		//フェードイン（ここはいじらないでよい）
 		manager->fade->fadeInTrigger();
 	}
@@ -25,18 +32,40 @@ namespace GAME05 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 	void GAME::proc(MANAGER* manager)
 	{
 		//更新
-		Px += Vx;
-
+		hideCursor();
+		c1->move();
+		c1->collsionWall();
+		c1->scoreCounter();
+		if (c1->hp() > 0) {
+			for (int i = 0; i < 10; i++) {
+				b1[i].move();
+			}
+		}
+		for (int i = 0; i < 10; i++) {
+			b1[i].collisionWall();
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			c1->collisionBall(b1[i].px(), b1[i].py(), b1[i].diameter());
+		}
+		
 		//描画
 		clear(200);
-		circle(Px, Py, Diameter);
+		for (int i = 0; i < 10; i++) {
+			b1[i].draw();
+		}
+		fill(220, 220, 220);
+		c1->draw();
+		fill(40, 40, 40);
 		
-		//円が右に消えたらゲームオーバーとする
-		if (Px > 2100) {
+		//ゲームオーバーとする
+		if (c1->hp() <= 0) {
 			//うんこ表示
+			dsound();
 			rectMode(CENTER);
 			image(Img, width / 2, height / 2);
 			//文字表示
+			c1->scoredraw();
 			fill(255, 0, 0);
 			textSize(200);
 			text("Game Over", 500, 100);
@@ -47,6 +76,7 @@ namespace GAME05 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 				BackToMenuFlag = 1;
 			}
 		}
+		
 
 		//メニューに戻る (基本的に以下はいじらなくてよい)
 		manager->fade->draw();
