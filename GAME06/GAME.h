@@ -1,6 +1,6 @@
 #pragma once
 #include"../MAIN/STATE.h"
-
+#include<stdio.h>
 namespace GAME06 { //自分でなにかファイルを追加したらincludeの後にこの行を追加すること。　ファイルの最後に“ } ”も忘れずに！
 
 	class GAME : public STATE {
@@ -17,10 +17,16 @@ namespace GAME06 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 		float Px;
 		float Py;
 		float Vx;
+		float Vy;
+
+		float PastPx = 0;
+		float PastPy = 0;
+		bool drawing = true;
+	    
+		COLOR color;
 
 		//以下はいじらないでよい
 		int BackToMenuFlag=0;
 	};
 
 }
-
