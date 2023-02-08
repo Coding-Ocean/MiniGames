@@ -134,7 +134,7 @@ namespace GAME26 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 
 		CollisionDelay = 0.08f;
 		collisionSnd = loadSound("../game26/assets/collisionSND.wav");
-
+		playSound(collisionSnd);
 		init();
 		angleMode(DEGREES);
 
@@ -392,7 +392,10 @@ namespace GAME26 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 				if (distance < 85) {
 					//めり込む前に戻す
 					float rollback = (85 - distance) / 2;
-					float Ang = Acos(abs(S[i].Px - S[j].Px) / distance);
+					float cosTheta = abs(S[i].Px - S[j].Px) / distance;
+					if (cosTheta < -1)cosTheta = -1;
+					if (cosTheta > 1)cosTheta = 1;
+					float Ang = Acos( cosTheta);
 					//iが左上
 					if (S[i].Px < S[j].Px && S[i].Py < S[j].Py) {
 						S[i].Px -= rollback * Cos(Ang);
@@ -542,7 +545,10 @@ namespace GAME26 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 		//角度
 		float AC = 0;
 		//衝突角
-		AC = Acos(abs(S[idx1].Px - S[idx2].Px) / distance);
+		float cosTheta = abs(S[idx1].Px - S[idx2].Px) / distance;
+		if (cosTheta < -1)cosTheta = -1;
+		if (cosTheta > 1)cosTheta = 1;
+		AC = Acos(cosTheta);
 
 		S[idx2].Vx += S[idx1].Vx * Cos(AC) + S[idx1].Vy * (1 - Sin(AC));
 		if (S[idx1].Py <= S[idx2].Py) {

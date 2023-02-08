@@ -56,7 +56,36 @@ MENU::MENU( MANAGER *manager ){
 
 MENU::~MENU(){
 }
-
+const char* name[] = {
+"",
+"r–Ø",
+"Šâ‰º",
+"ã‘º",
+"]ì",
+"—Ž‡",
+"ì–ì",
+"Œã“¡",
+"âŒû",
+"‚“c",
+"’|è",
+"“c’†",
+"Ž›‰®",
+"’†–ì",
+"¼‰Y",
+"‹´–{",
+"ûMú±",
+"—Ñ",
+"Œ´“c",
+"“¡––",
+"‘O“c",
+"‰v“c",
+"‘“c",
+"¼‰ª",
+"¼—Ž",
+"ŽR‰º",
+"“nç²",
+"Œ´“c",
+};
 void MENU::proc( MANAGER *manager ){
     int& selectIdx = manager->selectIdx; //–¼‘O‚ð’Z‚­‚·‚é
 
@@ -110,11 +139,13 @@ void MENU::proc( MANAGER *manager ){
             strokeWeight(10);
             fill(Hue*k,Satu,Valu);
             rect( RectX + RectWidth * j, RectY + RectHeight * i,RectWidth,RectHeight);
-            fill(0, 0, 100);
-            text(k, RectX +10+ RectWidth * j, RectY + 10+RectHeight * i);
-            if( manager->clearFlags[ k ] ){
-                image( ClearImg, RectX + RectWidth * j, RectY + RectHeight * i);
+            if (manager->clearFlags[k]==0) {
+                fill(0, 0, 100);
+                text(name[k], RectX + 20 + RectWidth * j, RectY + 10 + RectHeight * i);
             }
+            //if( manager->clearFlags[ k ] ){
+            //    image( ClearImg, RectX + RectWidth * j, RectY + RectHeight * i);
+            //}
         }
     }
 

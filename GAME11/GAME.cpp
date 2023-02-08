@@ -339,12 +339,15 @@ namespace GAME11 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 		clearflag = 0;
 
 		alltrue = 0;
+		hideCursor();
+
 		//フェードイン（ここはいじらないでよい）
 		manager->fade->fadeInTrigger();
 	}
 
 	GAME::~GAME()
 	{
+		showCursor();
 	}
 
 	void GAME::proc(MANAGER* manager)
@@ -366,7 +369,6 @@ namespace GAME11 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 
 		if (ballB < HEIGHT + 100) {
 
-			hideCursor();
 			clear(0);
 
 			if (startflag == 0)

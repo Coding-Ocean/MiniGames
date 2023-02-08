@@ -18,7 +18,8 @@ namespace GAME05 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 			b1[i].init();
 		}
 		
-		
+		hideCursor();
+
 
 		Img = loadImage("../game05/assets/unkoWhite.png");
 		//フェードイン（ここはいじらないでよい）
@@ -27,12 +28,12 @@ namespace GAME05 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 
 	GAME::~GAME()
 	{
+		showCursor();
 	}
 
 	void GAME::proc(MANAGER* manager)
 	{
 		//更新
-		hideCursor();
 		c1->move();
 		c1->collsionWall();
 		c1->scoreCounter();
