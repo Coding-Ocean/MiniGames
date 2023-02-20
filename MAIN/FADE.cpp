@@ -19,11 +19,13 @@ void FADE::draw(){
     rectMode(CORNER);
     if(      FadeState == FADE_IN_TRIGGER ){
         Alpha = 255;
-        fill(0,0,0, Alpha);
+        noStroke();
+        fill(0, 0, 0, Alpha);
         rect(0, 0, width, height);
         FadeState = FADE_IN;
     }
     else if( FadeState == FADE_IN ){
+        noStroke();
         fill(0, 0, 0, Alpha);
         rect(0, 0, width, height);
         Alpha -= Speed;
@@ -38,6 +40,7 @@ void FADE::draw(){
         FadeState = FADE_OUT;
     }
     else if( FadeState == FADE_OUT ){
+        noStroke();
         fill(0, 0, 0, Alpha);
         rect(0, 0, width, height);
         Alpha += Speed;
@@ -47,6 +50,7 @@ void FADE::draw(){
         }
     }
     else if( FadeState == FADE_OUT_END ){
+        noStroke();
         fill(0, 0, 0, 255);
         rect(0, 0, width, height);
     }

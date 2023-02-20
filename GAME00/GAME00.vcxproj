@@ -106,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -131,10 +132,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ACTOR.h" />
+    <ClInclude Include="BALL.h" />
+    <ClInclude Include="BLOCK.h" />
+    <ClInclude Include="COURT.h" />
     <ClInclude Include="GAME.h" />
+    <ClInclude Include="PLAYER.h" />
+    <ClInclude Include="SCORE.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ACTOR.cpp" />
+    <ClCompile Include="BALL.cpp" />
+    <ClCompile Include="BLOCK.cpp" />
+    <ClCompile Include="COURT.cpp" />
     <ClCompile Include="GAME.cpp" />
+    <ClCompile Include="PLAYER.cpp" />
+    <ClCompile Include="SCORE.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,6 +33,7 @@ namespace GAME04 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 		By = height / 2;
 		BVx = random(20,120);
 		Vy = -20;
+
 		//フェードイン（ここはいじらないでよい）
 		manager->fade->fadeInTrigger();
 	}
@@ -122,6 +123,7 @@ namespace GAME04 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 		
 		//描画
 		clear(200);
+		strokeWeight(2);
 		circle(Ex, Ey, Eiameter);
 		circle(Px, Py, Diameter);
 		circle(Ax, Ay, Aiameter);

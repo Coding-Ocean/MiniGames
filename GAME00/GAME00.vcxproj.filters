@@ -2,8 +2,20 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="GAME.h" />
+    <ClInclude Include="ACTOR.h" />
+    <ClInclude Include="BALL.h" />
+    <ClInclude Include="BLOCK.h" />
+    <ClInclude Include="COURT.h" />
+    <ClInclude Include="PLAYER.h" />
+    <ClInclude Include="SCORE.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GAME.cpp" />
+    <ClCompile Include="ACTOR.cpp" />
+    <ClCompile Include="BALL.cpp" />
+    <ClCompile Include="BLOCK.cpp" />
+    <ClCompile Include="COURT.cpp" />
+    <ClCompile Include="PLAYER.cpp" />
+    <ClCompile Include="SCORE.cpp" />
   </ItemGroup>
 </Project>

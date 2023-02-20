@@ -57,7 +57,7 @@ MENU::MENU( MANAGER *manager ){
 MENU::~MENU(){
 }
 const char* name[] = {
-"",
+"óéèº",
 "çrñÿ",
 "ä‚â∫",
 "è„ë∫",

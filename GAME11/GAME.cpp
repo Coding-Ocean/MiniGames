@@ -457,6 +457,7 @@ namespace GAME11 { //自分でなにかファイルを追加したらincludeの後にこの行を追加す
 			}
 
 			//ボール
+			strokeWeight(10);
 			stroke(Color[3]);
 			rect(ballpx, ballpy, ballW, ballH);
 			if (startflag == 1)
